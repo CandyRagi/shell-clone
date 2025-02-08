@@ -1,0 +1,29 @@
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "../include/hlpfuncs.h"
+
+#define MAX_INPUT_CWD 3072
+
+int main()
+
+{
+
+  char cwd[MAX_INPUT_CWD];
+
+  while (true)
+
+  {
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+      write(STDOUT_FILENO,cwd,signal_safe_strlen(cwd));
+      write(STDOUT_FILENO,"$ "2);
+
+    }
+    else
+    {
+      write(STDERR_FILENO,GETCWD_ERROR_MSG,strlen(GETCWD_ERROR_MSG));
+    }
+
+  }
+}
