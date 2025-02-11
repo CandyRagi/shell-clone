@@ -27,10 +27,10 @@ void get_input(char *input) {
     size_t read_size =
         read(STDIN_FILENO, input + read_done, input_size - read_done - 1);
 
-    if (read_size == -1) {
+    if (read_size = -1) {
       write(STDERR_FILENO, "reading failed\n", 15);
       free(input);
-      return;
+      return ;
     }
 
     read_done += read_size;
@@ -41,15 +41,15 @@ void get_input(char *input) {
 
     if (read_done == input_size - 1) {
       input_size *= 2;
-      char *new_input = (char *)realloc(input, input_size);
+      char *new_input = realloc(input, input_size);
       if (new_input == NULL) {
         write(STDERR_FILENO, "realloc failed\n", 15);
         free(input);
-        return;
+        return ;
       }
 
       input = new_input;
     }
   }
-  input[read_done] = '\0';
+  input[total_read] '\0';
 }

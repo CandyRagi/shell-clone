@@ -41,7 +41,7 @@ void get_input(char *input) {
 
     if (read_done == input_size - 1) {
       input_size *= 2;
-      char *new_input = (char *)realloc(input, input_size);
+      char *new_input = (char*)realloc(input, input_size);
       if (new_input == NULL) {
         write(STDERR_FILENO, "realloc failed\n", 15);
         free(input);
@@ -51,5 +51,5 @@ void get_input(char *input) {
       input = new_input;
     }
   }
-  input[read_done] = '\0';
+  input[read_done]='\0';
 }
