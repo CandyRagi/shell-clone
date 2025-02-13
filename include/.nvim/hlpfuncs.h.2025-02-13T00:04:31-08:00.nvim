@@ -1,0 +1,133 @@
+#include "msgs.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+int signal_safe_strlen(char *input) {
+  size_t len = 0;
+  while (input[len] != '\0') {
+    len++;
+  }
+  return len;
+}
+
+char **input_tokenizer(char *input) {
+
+  size_t len = signal_safe_strlen(input);
+  char *copied_str = (char *)malloc(len + 1);
+  if (!copied_str) {
+    perror("malloc failed");
+    return NULL;
+  }
+
+  strncpy(copied_str, input, len + 1);
+
+  char **tokens;
+  char *saveptr;
+  char *token;
+  int count = 0;
+
+  token = strtok_r(copied_str, "\t\n\r ", &saveptr); 
+    while (token) {
+      char **temp = (char **)realloc(tokens, (count + 1) * sizeof(char *));
+      if (!temp) {
+        perror("relloc failed\n");
+        for (int i = 0; i < count; i++) {
+          free(tokens[i]);
+        }
+        free(tokens);
+        free(copied_str);
+        return NULL;
+      }
+
+      tokens = temp;
+
+      tokens[count] =
+          (char *)malloc((signal_safe_strlen(token) + 1) * sizeof(char));
+      if (!tokens[count]) {
+        perror("malloc failed\n");
+        for (int i = 0; i < count; i++) {
+          free(tokens[i]);
+        }
+        free(tokens);
+        free(copied_str);
+        return NULL;
+      }
+
+      strcpy(tokens[count], token);
+      count++;
+
+      token = strtok_r(NULL, "\t\n\r ", &saveptr);
+    }
+
+    char **temp = (char **)realloc(tokens, (count + 1) * sizeof(char *));
+    if (!tokens) {
+      perror("relloc failed\n");
+      for (int i = 0; i < count; i++) {
+        free(tokens[i]);
+      }
+      free(tokens);
+      free(copied_str);
+      return NULL;
+    }
+
+    tokens = temp;
+
+    tokens[count] = NULL;
+
+    free(copied_str);
+    return tokens;
+  }
+
+  void free_token(char **tokens) {
+    for (int i = 0; tokens[i]; i++) {
+      free(tokens[i]);
+    }
+
+    free(tokens);
+  }
+
+  char *get_input() {
+    size_t input_size = 1024;
+    char *input = (char *)malloc(input_size);
+
+    if (input == NULL) {
+      write(STDERR_FILENO, "Input failed\n", 13);
+      return NULL;
+    }
+
+    size_t read_done = 0;
+
+    while (true) {
+      size_t read_size =
+          read(STDIN_FILENO, input + read_done, input_size - read_done - 1);
+
+      if (read_size == -1) {
+        write(STDERR_FILENO, "reading failed\n", 15);
+        free(input);
+        return NULL;
+      }
+
+      read_done += read_size;
+
+      if (read_size == 0 || input[read_done - 1] == '\n') {
+        break;
+      }
+
+      if (read_done == input_size - 1) {
+        input_size *= 2;
+        char *new_input = (char *)realloc(input, input_size);
+        if (new_input == NULL) {
+          write(STDERR_FILENO, "realloc failed\n", 15);
+          free(input);
+          return NULL;
+        }
+
+        input = new_input;
+      }
+    }
+    input[read_done] = '\0';
+    return input;
+  }

@@ -44,7 +44,8 @@ char **input_tokenizer(char *input) {
 
     tokens = temp;
 
-    tokens[count] = strdup(token);
+    tokens[count] =
+        (char *)malloc((signal_safe_strlen(token) + 1) * sizeof(char));
     if (!tokens[count]) {
       perror("malloc failed\n");
       for (int i = 0; i < count; i++) {

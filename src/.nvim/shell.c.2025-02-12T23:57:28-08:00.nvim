@@ -25,7 +25,7 @@ int main()
       write(STDERR_FILENO, GETCWD_ERROR_MSG, strlen(GETCWD_ERROR_MSG));
     }
 
-    char *input = get_input();
+    char *input=get_input();
     cmd_exe(input_tokenizer(input));
 
     free(input);
