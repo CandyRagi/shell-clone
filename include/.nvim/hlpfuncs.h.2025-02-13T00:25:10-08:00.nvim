@@ -128,9 +128,11 @@ char *get_input() {
   return input;
 }
 
-int tokenized_array_size_getter(char **array) {
-  int i = 0;
-  while (array[i] != NULL) {
+int tokenized_array_size_getter(char **array)
+{
+  int i=0;
+  while(array[i]!=NULL)
+  {
     i++;
   }
 

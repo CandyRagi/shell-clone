@@ -14,10 +14,10 @@ void cmd_exe(char **input) {
   } else {
 
     if (strcmp(input[tokenized_array_size_getter(input) - 2], "&") == 0 ||
-        input[tokenized_array_size_getter(input) - 2]
+        input[tokenized_array_size_getter(input)]
              [signal_safe_strlen(
                   input[tokenized_array_size_getter(input) - 2]) -
-              1] == '&') {
+              2] == '&') {
 
     } else {
       int status;
