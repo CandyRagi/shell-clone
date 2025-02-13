@@ -1,6 +1,6 @@
 #include "hlpfuncs.h"
+#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -12,9 +12,10 @@ void cmd_exe(char **input) {
     execvp(input[0], input);
 
   } else {
-    char **INPUT2;
-    if (is_Background_process(INPUT2)) {
-      printf("backfround");
+
+    if()
+    {
+    
     } else {
       int status;
 

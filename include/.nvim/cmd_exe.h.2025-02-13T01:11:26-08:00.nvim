@@ -14,11 +14,11 @@ void cmd_exe(char **input) {
   } else {
     char **INPUT2;
     if (is_Background_process(INPUT2)) {
-      printf("backfround");
+    printf("backfround");
     } else {
-      int status;
+    int status;
 
-      waitpid(pid, &status, 0);
+    waitpid(pid, &status, 0);
     }
   }
 }

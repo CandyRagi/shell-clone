@@ -1,4 +1,4 @@
-#ifndef HLPFUNCS_H
+#indef HLPFUNCS_H
 #define HLPFUNCS_H
 #include "msgs.h"
 #include <stdbool.h>

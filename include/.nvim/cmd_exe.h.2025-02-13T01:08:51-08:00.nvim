@@ -12,8 +12,8 @@ void cmd_exe(char **input) {
     execvp(input[0], input);
 
   } else {
-    char **INPUT2;
-    if (is_Background_process(INPUT2)) {
+
+    if (is_Background_process(input)) {
       printf("backfround");
     } else {
       int status;

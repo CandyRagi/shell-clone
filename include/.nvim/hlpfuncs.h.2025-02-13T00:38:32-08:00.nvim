@@ -1,4 +1,4 @@
-#ifndef HLPFUNCS_H
+#ifdef HLPFUNCS_H
 #define HLPFUNCS_H
 #include "msgs.h"
 #include <stdbool.h>
@@ -130,27 +130,13 @@ char *get_input() {
   return input;
 }
 
-int is_Background_process(char **array) {
-  if (!array || !array[0]) {
-    return 0;
-  }
+int tokenized_array_size_getter(char **array) {
   int i = 0;
   while (array[i] != NULL) {
     i++;
   }
 
-  char *ndLastElement = array[i - 2];
-
-  if (strcmp(ndLastElement, "&") == 0 && i > 1) {
-    return 1;
-  }
-
-  int len = signal_safe_strlen(ndLastElement);
-
-  if (len > 0 && ndLastElement[len - 1] == '&') {
-    return 1;
-  }
-
-  return 0;
+  i++;
+  return i;
 }
 #endif
