@@ -24,7 +24,7 @@ char **input_tokenizer(char *input) {
 
   strcpy(copied_str, input);
 
-  char **tokens = NULL;
+  char **tokens;
   char *saveptr;
   char *token;
   int count = 0;
@@ -70,7 +70,9 @@ char **input_tokenizer(char *input) {
     free(copied_str);
     return NULL;
   }
+
   tokens = temp;
+
   tokens[count] = NULL;
 
   free(copied_str);

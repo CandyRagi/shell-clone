@@ -24,14 +24,14 @@ char **input_tokenizer(char *input) {
 
   strcpy(copied_str, input);
 
-  char **tokens = NULL;
+  char **tokens;
   char *saveptr;
   char *token;
   int count = 0;
 
   token = strtok_r(copied_str, "\t\n\r ", &saveptr);
   while (token) {
-    char **temp = realloc(tokens, (count + 1) * sizeof(char *));
+    char **temp = (char **)realloc(tokens, (count + 1) * sizeof(char *));
     if (!temp) {
       perror("relloc failed\n");
       for (int i = 0; i < count; i++) {
@@ -55,13 +55,14 @@ char **input_tokenizer(char *input) {
       return NULL;
     }
 
+    strcpy(tokens[count], token);
     count++;
 
     token = strtok_r(NULL, "\t\n\r ", &saveptr);
   }
 
-  char **temp = realloc(tokens, (count + 1) * sizeof(char *));
-  if (!temp) {
+  char **temp = (char **)realloc(tokens, (count + 1) * sizeof(char *));
+  if (!tokens) {
     perror("relloc failed\n");
     for (int i = 0; i < count; i++) {
       free(tokens[i]);
@@ -70,7 +71,9 @@ char **input_tokenizer(char *input) {
     free(copied_str);
     return NULL;
   }
+
   tokens = temp;
+
   tokens[count] = NULL;
 
   free(copied_str);
