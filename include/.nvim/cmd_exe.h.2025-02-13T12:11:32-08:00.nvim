@@ -1,0 +1,25 @@
+#include "hlpfuncs.h"
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+void cmd_exe(char **input) {
+  pid_t pid = fork();
+
+  if (pid == 0) {
+    execvp(input[0], input);
+
+  } else {
+    char **INPUT2;
+    printf("hi");
+    //if (is_Background_process(INPUT2)) {
+    //  printf("backfround");
+    //} else {
+      //int status;
+
+      //waitpid(pid, &status, 0);
+   // }
+  }
+}

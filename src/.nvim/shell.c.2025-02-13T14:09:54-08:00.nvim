@@ -28,14 +28,14 @@ int main()
 
     char *input = get_input();
 
-    int len = signal_safe_strlen(input) - 1;
-    printf("length is %d\n ", len);
+    int len = strlen(input);
+
     while (len > 0 && input[len - 1] == ' ') {
       len--;
     }
 
     if (len > 0 && input[len - 1] == '&') {
-      printf("background\n");
+      printf("background\n");   
       background = true;
     }
 

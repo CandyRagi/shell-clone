@@ -59,7 +59,7 @@ char **input_tokenizer(char *input) {
 
     count++;
 
-    token = strtok_r(NULL, "\t\n\r& ", &saveptr);
+    token = strtok_r(NULL, "\t\n\r ", &saveptr);
   }
 
   char **temp = realloc(tokens, (count + 1) * sizeof(char *));

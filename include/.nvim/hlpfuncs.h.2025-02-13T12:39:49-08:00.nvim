@@ -31,7 +31,7 @@ char **input_tokenizer(char *input) {
   char *token;
   int count = 0;
 
-  token = strtok_r(copied_str, "\t\n\r& ", &saveptr);
+  token = strtok_r(copied_str, "\t\n\r ", &saveptr);
   while (token) {
     char **temp = realloc(tokens, (count + 1) * sizeof(char *));
     if (!temp) {
@@ -59,7 +59,7 @@ char **input_tokenizer(char *input) {
 
     count++;
 
-    token = strtok_r(NULL, "\t\n\r& ", &saveptr);
+    token = strtok_r(NULL, "\t\n\r ", &saveptr);
   }
 
   char **temp = realloc(tokens, (count + 1) * sizeof(char *));
@@ -130,4 +130,31 @@ char *get_input() {
   return input;
 }
 
+int is_Background_process(char **array) {
+  if (!array || !array[0]) {
+    return 0;
+  }
+  int i = 0;
+  while (array[i] != NULL) {
+    i++;
+  }
+
+  char *ndLastElement = array[i - 1];
+
+
+  if (strcmp(ndLastElement, "&") == 0 && i > 1) {
+  
+  printf("%s\n this is second last element", ndLastElement);
+    return 1;
+  }
+
+  int len = signal_safe_strlen(ndLastElement);
+
+  if (len > 0 && ndLastElement[len - 2] == '&') {
+    printf("last element is &");
+    return 1;
+  }
+
+  return 0;
+}
 #endif

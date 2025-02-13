@@ -15,9 +15,9 @@ int main()
   char cwd[MAX_INPUT_CWD];
 
   while (true)
-
+  
   {
-    bool background = false;
+    bool background=false;
     if (getcwd(cwd, sizeof(cwd)) != NULL) {
       write(STDOUT_FILENO, cwd, signal_safe_strlen(cwd));
       write(STDOUT_FILENO, "$ ", 2);
@@ -27,19 +27,13 @@ int main()
     }
 
     char *input = get_input();
-
-    int len = signal_safe_strlen(input) - 1;
-    printf("length is %d\n ", len);
-    while (len > 0 && input[len - 1] == ' ') {
-      len--;
+    if(input[signal_safe_strlen(input)-1]=='&')
+    {
+      background=true;
     }
 
-    if (len > 0 && input[len - 1] == '&') {
-      printf("background\n");
-      background = true;
-    }
 
-    cmd_exe(input_tokenizer(input), background);
+    cmd_exe(input_tokenizer(input),background);
 
     free(input);
   }

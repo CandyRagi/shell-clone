@@ -13,7 +13,7 @@ void cmd_exe(char **input, bool background) {
     execvp(input[0], input);
 
   } else {
-    if (background) {
+    if (background==true) {
       printf("background");
     } else {
       int status;
