@@ -2,7 +2,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
 int signal_safe_strlen(char *input) {
@@ -13,51 +12,60 @@ int signal_safe_strlen(char *input) {
   return len;
 }
 
-char **input_tokenizer(char *input) {
+char ** input_tokenizer(char * input)
+{
 
-  size_t len = signal_safe_strlen(input);
-  char *copied_str = (char *)malloc(len + 1);
+  size_t len=signal_safe_strlen(input);
+  char *copied_str=(char*) malloc(len+1);
 
-  strcpy(copied_str, input);
+  strcpy(copied_str,input);
 
-  char **tokens = (char **)malloc(sizeof(char *));
-  char *saveptr;
-  char *token;
 
-  int count = 0;
 
-  while ((token = strtok_r(copied_str, "\t\n\r ", &saveptr))) {
-    tokens[count] =
-        (char *)malloc((signal_safe_strlen(token) + 1) * sizeof(char));
-    if (!tokens[count])
+  char **tokens=(char**)malloc(sizeof(char*));
+  char* saveptr;
+  char* token;
 
+  int count=0;
+  
+  while(token=strtok_r(copied_str,"\t\n\r ",&saveptr))
+  {
+    tokens[count]=(char*)malloc((signal_safe_strlen(token)+1)*sizeof(char));
+    if(!tokens[count])
+    
     {
       perror("malloc failed\n");
-      for (int i = 0; i < count; i++) {
+      for(int i=0;i<count;i++)
+      {
         free(tokens[i]);
       }
+      
     }
 
-    tokens = (char **)realloc(tokens, (count + 1) * sizeof(char *));
-    if (!tokens) {
+    tokens=(char**)realloc((count+1)*sizeof(char*));
+    if(!tokens)
+    {
       perror("relloc failed\n");
-      for (int i = 0; i < count; i++) {
+      for(int i=0;i<count;i++)
+      {
         free(tokens[i]);
       }
     }
 
-    strcpy(tokens[count], token);
+    strcpy(tokens[count],token);
     count++;
   }
 
-  tokens[count] = NULL;
+  tokens[count]=NULL;
 
   free(copied_str);
   return tokens;
 }
 
-void free_token(char **tokens) {
-  for (int i = 0; tokens[i]; i++) {
+void free_token(char**tokens)
+{
+  for(int i=0;tokens[i];i++)
+  {
     free(tokens[i]);
   }
 

@@ -26,7 +26,7 @@ char **input_tokenizer(char *input) {
 
   int count = 0;
 
-  while ((token = strtok_r(copied_str, "\t\n\r ", &saveptr))) {
+  while (token = strtok_r(copied_str, "\t\n\r ", &saveptr)) {
     tokens[count] =
         (char *)malloc((signal_safe_strlen(token) + 1) * sizeof(char));
     if (!tokens[count])
@@ -38,7 +38,7 @@ char **input_tokenizer(char *input) {
       }
     }
 
-    tokens = (char **)realloc(tokens, (count + 1) * sizeof(char *));
+    tokens = (char **)realloc((count + 1) * sizeof(char *));
     if (!tokens) {
       perror("relloc failed\n");
       for (int i = 0; i < count; i++) {

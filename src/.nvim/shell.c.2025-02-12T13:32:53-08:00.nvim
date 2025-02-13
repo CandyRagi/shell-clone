@@ -1,4 +1,3 @@
-#include "../include/cmd_exe.h"
 #include "../include/hlpfuncs.h"
 #include <stdbool.h>
 #include <stdio.h>
@@ -27,8 +26,6 @@ int main()
 
     char *input;
     get_input(input);
-    cmd_exe(input_tokenizer(input));
-
-    free(input);
+    
   }
 }

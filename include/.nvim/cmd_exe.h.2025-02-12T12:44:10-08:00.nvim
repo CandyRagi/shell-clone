@@ -1,0 +1,18 @@
+#include<stdio.h>
+#include<sys/wait.h>
+#include<unistd.h>
+
+
+void cmd_exe(char *input,int size)
+{
+  pid_t=fork();
+
+
+
+  if(pid_t==0)
+  {
+      execvp(input[0],    
+  }
+
+}
+

@@ -1,10 +1,11 @@
-#include "../include/cmd_exe.h"
 #include "../include/hlpfuncs.h"
+#include "../include/cmd_exe.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+
 
 #define MAX_INPUT_CWD 3072
 
@@ -28,7 +29,5 @@ int main()
     char *input;
     get_input(input);
     cmd_exe(input_tokenizer(input));
-
-    free(input);
   }
 }

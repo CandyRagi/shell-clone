@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include<stdlib.h>
+
+
+void cmd_exe(char **input) {
+  pid_t = fork();
+
+  if (pid_t == 0) {
+    execvp(input[0],input);
+  }
+}
