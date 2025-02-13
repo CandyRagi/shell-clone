@@ -1,11 +1,11 @@
 #include "../include/cmd_exe.h"
 #include "../include/hlpfuncs.h"
-#include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include<ctype.h>
 #define MAX_INPUT_CWD 3072
 
 int main()

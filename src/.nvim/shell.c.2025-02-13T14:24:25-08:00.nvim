@@ -1,11 +1,11 @@
 #include "../include/cmd_exe.h"
 #include "../include/hlpfuncs.h"
-#include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+
 #define MAX_INPUT_CWD 3072
 
 int main()
@@ -27,20 +27,7 @@ int main()
     }
 
     char *input = get_input();
-    if (input == NULL) {
-      continue;
-    }
-
-    bool isEmpty = true;
-    for (int i = 0; input[i] != '\0'; i++) {
-      if (!isspace((unsigned char)input[i])) {
-        isEmpty = false;
-        break;
-      }
-    }
-
-    if (isEmpty) {
-      free(input);
+    if (input == NULL || input == "\n") {
       continue;
     }
 
