@@ -18,7 +18,7 @@ char **input_tokenizer(char *input) {
   size_t len = signal_safe_strlen(input);
   char *copied_str = (char *)malloc(len + 1);
 
-  strncpy(copied_str, input, len + 1);
+  strncpy(copied_str, input,len+1);
 
   char **tokens;
   char *saveptr;
@@ -27,6 +27,7 @@ char **input_tokenizer(char *input) {
   int count = 0;
 
   while ((token = strtok_r(copied_str, "\t\n\r ", &saveptr))) {
+      
 
     char **temp = (char **)realloc(tokens, (count + 1) * sizeof(char *));
     if (!tokens) {
@@ -39,11 +40,13 @@ char **input_tokenizer(char *input) {
       return NULL;
     }
 
-    tokens = temp;
+    tokens=temp;
+
 
     tokens[count] =
         (char *)malloc((signal_safe_strlen(token) + 1) * sizeof(char));
-    if (!tokens[count]) {
+    if (!tokens[count])
+    {
       perror("malloc failed\n");
       for (int i = 0; i < count; i++) {
         free(tokens[i]);
@@ -57,18 +60,19 @@ char **input_tokenizer(char *input) {
     count++;
   }
 
-  char **temp = (char **)realloc(tokens, (count + 1) * sizeof(char *));
-  if (!tokens) {
-    perror("relloc failed\n");
-    for (int i = 0; i < count; i++) {
-      free(tokens[i]);
+  
+   char ** temp = (char **)realloc(tokens, (count + 1) * sizeof(char *));
+    if (!tokens) {
+      perror("relloc failed\n");
+      for (int i = 0; i < count; i++) {
+        free(tokens[i]);
+      }
+      free(tokens);
+      free(copied_str);
+      return NULL;
     }
-    free(tokens);
-    free(copied_str);
-    return NULL;
-  }
 
-  tokens = temp;
+  tokens=temp;
 
   tokens[count] = NULL;
 
