@@ -11,11 +11,11 @@ void cmd_exe(char **input, bool background) {
 
   if (pid == 0) {
     execvp(input[0], input);
-    write(STDERR_FILENO, "excecvp failed\n", 15);
+    write(STDERR_FILENO,"excecvp failed\n",15);
 
   } else {
-    if (!background) {
-
+    if (background) {
+    } else {
       int status;
 
       waitpid(pid, &status, 0);

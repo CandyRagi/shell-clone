@@ -46,40 +46,24 @@ int main()
     }
 
     int len = signal_safe_strlen(input) - 1;
+    printf("length is %d\n ", len);
     while (len > 0 && input[len - 1] == ' ') {
       len--;
     }
 
     if (len > 0 && input[len - 1] == '&') {
+      printf("background\n");
       background = true;
     }
 
     char **tokenized_input = input_tokenizer(input);
     if (strcmp(tokenized_input[0], "exit") == 0) {
-      free(input);
       cmd_exit(tokenized_input);
-      free_tokens(tokenized_input);
-      continue;
-    } else if (strcmp(tokenized_input[0], "pwd") == 0) {
-      cmd_pwd(tokenized_input);
-      free(input);
-      free_token(tokenized_input);
-      continue;
-    } else if (strcmp(tokenized_input[0], "help") == 0) {
-      cmd_help(tokenized_input);
-      free(input);
-      free_token(tokenized_input);
-      continue;
-    } else if (strcmp(tokenized_input[0], "cd") == 0) {
-
-      free(input);
-      free_token(tokenized_input);
       continue;
     }
 
     cmd_exe(tokenized_input, background);
 
     free(input);
-    free_tokens(tokenized_input);
   }
 }

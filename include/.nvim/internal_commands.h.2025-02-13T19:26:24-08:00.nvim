@@ -1,0 +1,24 @@
+#include "hlpfuncs.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int token_counter(char **token) {
+  int i = 0;
+  while (token[i] != NULL) {
+    i++;
+  }
+
+  return i;
+}
+
+void cmd_exit(char **token) {
+  if (token_counter(token) == 1) {
+    free_tokens(token);
+    exit(0);
+  } else {
+    free(token);
+    write(STDERR_FILENO, "exit: too many args\n", 20);
+  }
+}

@@ -1,0 +1,57 @@
+#include "hlpfuncs.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int token_counter(char **token) {
+  int i = 0;
+  while (token[i] != NULL) {
+    i++;
+  }
+
+  return i;
+}
+
+void cmd_exit(char **token) {
+  if (token_counter(token) == 1) {
+    free_tokens(token);
+    exit(0);
+  } else {
+    write(STDERR_FILENO, "exit: too many args\n", 20);
+  }
+}
+
+void cmd_pwd(char **token) {
+
+  char cwd[3072];
+  if (token_counter(token) != 1) {
+
+    write(STDOUT_FILENO, "pwd: too many args\n", 19);
+  } else if (token_counter(token) == 1 && getcwd(cwd, sizeof(cwd)) != NULL) {
+
+    write(STDOUT_FILENO, cwd, signal_safe_strlen(cwd));
+
+    write(STDOUT_FILENO, "\n", 1);
+  } else {
+    write(STDERR_FILENO, GETCWD_ERROR_MSG, strlen(GETCWD_ERROR_MSG));
+  }
+}
+
+void cmd_help(char **token) {
+  if (token_counter(token) > 2) {
+    write(STDOUT_FILENO, "cd: too may args\n", 17);
+  } else if (strcmp(token[2], "cd") == 0) {
+
+    write(STDOUT_FILENO, "cd: do this\n", 12);
+  } else if (strcmp(token[2], "ls") == 0) {
+    write(STDOUT_FILENO, "ls: do this\n", 12);
+  } else if (strcmp(token[2], "exit") == 0) {
+    write(STDOUT_FILENO, "exit: do this\n", 14);
+  } else if (strcmp(token[2], "help") == 0) {
+    write(STDOUT_FILENO, "help: do this\n", 14);
+  } else {
+    write(STDOUT_FILENO, "all: do this\n", 12);
+  }
+}
+

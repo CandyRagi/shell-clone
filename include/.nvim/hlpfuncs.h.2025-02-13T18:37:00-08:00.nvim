@@ -7,14 +7,6 @@
 #include <string.h>
 #include <unistd.h>
 
-void free_tokens(char **tokens) {
-  for (int i = 0; tokens[i] != NULL; i++) {
-    free(tokens[i]);
-  }
-
-  free(tokens);
-}
-
 int signal_safe_strlen(char *input) {
   size_t len = 0;
   while (input[len] != '\0') {

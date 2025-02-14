@@ -58,22 +58,6 @@ int main()
     if (strcmp(tokenized_input[0], "exit") == 0) {
       free(input);
       cmd_exit(tokenized_input);
-      free_tokens(tokenized_input);
-      continue;
-    } else if (strcmp(tokenized_input[0], "pwd") == 0) {
-      cmd_pwd(tokenized_input);
-      free(input);
-      free_token(tokenized_input);
-      continue;
-    } else if (strcmp(tokenized_input[0], "help") == 0) {
-      cmd_help(tokenized_input);
-      free(input);
-      free_token(tokenized_input);
-      continue;
-    } else if (strcmp(tokenized_input[0], "cd") == 0) {
-
-      free(input);
-      free_token(tokenized_input);
       continue;
     }
 

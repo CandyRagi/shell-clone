@@ -15,7 +15,7 @@ void cmd_exe(char **input, bool background) {
 
   } else {
     if (!background) {
-
+    
       int status;
 
       waitpid(pid, &status, 0);

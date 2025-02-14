@@ -60,21 +60,17 @@ int main()
       cmd_exit(tokenized_input);
       free_tokens(tokenized_input);
       continue;
-    } else if (strcmp(tokenized_input[0], "pwd") == 0) {
-      cmd_pwd(tokenized_input);
-      free(input);
-      free_token(tokenized_input);
-      continue;
-    } else if (strcmp(tokenized_input[0], "help") == 0) {
-      cmd_help(tokenized_input);
-      free(input);
-      free_token(tokenized_input);
-      continue;
-    } else if (strcmp(tokenized_input[0], "cd") == 0) {
+    }
+    else if(strcmp(tokenized_input[0],pwd)==0)
+    {
+     if (getcwd(cwd, sizeof(cwd)) != NULL) {
+      write(STDOUT_FILENO, cwd, signal_safe_strlen(cwd));
 
-      free(input);
-      free_token(tokenized_input);
-      continue;
+    } else {
+      write(STDERR_FILENO, GETCWD_ERROR_MSG, strlen(GETCWD_ERROR_MSG));
+    }
+
+  
     }
 
     cmd_exe(tokenized_input, background);
