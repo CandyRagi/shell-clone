@@ -1,0 +1,12 @@
+{"version": 2, "width": 209, "height": 51, "timestamp": 1739514046, "idle_time_limit": 5.0, "env": {"SHELL": "/usr/bin/zsh", "TERM": "xterm-256color"}}
+[0.042733, "i", " "]
+[0.043894, "o", " "]
+[0.19344, "o", "\u001b[1m\u001b[7m%\u001b[27m\u001b[1m\u001b[0m                                                                                                                                                                                                                \r \r"]
+[0.193825, "o", "\u001b]2;cmpt201@7318d27a0134:~/units/04-long-assignments/a8-CandyRagi\u0007\u001b]1;../a8-CandyRagi\u0007"]
+[0.196511, "o", "\u001b]7;file://7318d27a0134/home/cmpt201/units/04-long-assignments/a8-CandyRagi\u001b\\"]
+[0.213954, "o", "\r\u001b[0m\u001b[27m\u001b[24m\u001b[J\u001b[35m[recording] \u001b[34m~/units/04-long-assignments/a8-CandyRagi\u001b[32m❯\u001b[39m \u001b[K"]
+[0.214315, "o", "\u001b[?1h\u001b=\u001b[?2004h"]
+[0.21759, "o", " "]
+[0.290357, "o", "\b \u001b[92m!\u001b[39m\b"]
+[0.956874, "i", "c"]
+[0.95873, "o", "\b \u001b[39mc"]

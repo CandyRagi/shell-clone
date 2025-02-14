@@ -10,36 +10,6 @@
 #include <string.h>
 #include <unistd.h>
 #define MAX_INPUT_CWD 3072
-#define MAX_HIST_SIZE 10
-
-char history[MAX_HIST_SIZE][MAX_INPUT_CWD];
-int history_count = 0;
-int command_number = 0;
-
-void add_to_history(char *input) {
-  if (!input || strlen(input) == 0) {
-    return;
-  }
-
-  if (history_count < MAX_HIST_SIZE) {
-
-    strncpy(history[history_count], input, MAX_INPUT_CWD);
-    history_count++;
-  } else {
-    for (int i = 1; i < MAX_HIST_SIZE; i++) {
-      strcpy(history[i - 1], history[i]);
-    }
-
-    strncpy(history[history_count], input, MAX_INPUT_CWD);
-  }
-}
-
-void show_history() {
-  int start = history_count > MAX_HIST_SIZE ? history_count - MAX_HIST_SIZE : 0;
-  for (int i = history_count - 1; i >= start; i--) {
-    printf("%d\t%s\n", i, history[i % MAX_HIST_SIZE]);
-  }
-}
 
 void sigint_handler(int sig) { write(STDOUT_FILENO, "sigint\n", 7); }
 
@@ -58,6 +28,7 @@ int main()
 
   char cwd[MAX_INPUT_CWD];
 
+  
   while (true)
 
   {
@@ -97,7 +68,6 @@ int main()
       background = true;
     }
 
-    add_to_history(input);
     char **tokenized_input = input_tokenizer(input);
     if (strcmp(tokenized_input[0], "exit") == 0) {
       free(input);
@@ -145,13 +115,6 @@ int main()
 
       free(input);
       free_token(tokenized_input);
-      continue;
-    } else if (strcmp(tokenized_input[0], "history") == 0) {
-      if (tokenized_input[1] == NULL) {
-        show_history();
-      }
-      free(input);
-      free_tokens(tokenized_input);
       continue;
     }
 
