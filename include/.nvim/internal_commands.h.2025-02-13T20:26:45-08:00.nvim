@@ -41,8 +41,6 @@ void cmd_pwd(char **token) {
 void cmd_help(char **token) {
   if (token_counter(token) > 2) {
     write(STDOUT_FILENO, "cd: too may args\n", 17);
-  } else if (token_counter(token) == 1) {
-    write(STDOUT_FILENO, "all: do this\n", 13);
   } else if (strcmp(token[1], "cd") == 0) {
 
     write(STDOUT_FILENO, "cd: do this\n", 12);
@@ -52,5 +50,7 @@ void cmd_help(char **token) {
     write(STDOUT_FILENO, "exit: do this\n", 14);
   } else if (strcmp(token[1], "help") == 0) {
     write(STDOUT_FILENO, "help: do this\n", 14);
+  } else {
+    write(STDOUT_FILENO, "all: do this\n", 12);
   }
 }

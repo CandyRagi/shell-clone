@@ -2,7 +2,6 @@
 #include "../include/hlpfuncs.h"
 #include "../include/internal_commands.h"
 #include <ctype.h>
-#include <pwd.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -72,34 +71,7 @@ int main()
       free_token(tokenized_input);
       continue;
     } else if (strcmp(tokenized_input[0], "cd") == 0) {
-      char *path = tokenized_input[1];
-      static char prev_dir[MAX_INPUT_CWD];
-      if (token_counter(tokenized_input) > 2) {
-        write(STDOUT_FILENO, "cd: to many args\n", 17);
-      } else if (path == NULL || strcmp(path, "~") == 0) {
-        struct passwd *pw = getpwuid(getuid());
-        path = pw->pw_dir;
-      } else if (strcmp(path, "-") == 0) {
-
-        if (prev_dir[0] == '\0') {
-          write(STDERR_FILENO, "cd: no prev\n", 12);
-          free(input);
-          free_token(tokenized_input);
-          continue;
-        }
-        path = prev_dir;
-      } else if (path[0] == '~') {
-        struct passwd *pw = getpwuid(getuid());
-        char full_path[MAX_INPUT_CWD];
-        snprintf(full_path, sizeof(full_path), "%s%s", pw->pw_dir, path + 1);
-        path = full_path;
-      }
-      if (chdir(path) != 0) {
-        write(STDOUT_FILENO, "cd: Unable\n", 11);
-      }
-
-      strcpy(prev_dir, cwd);
-
+      
       free(input);
       free_token(tokenized_input);
       continue;

@@ -1,0 +1,10 @@
+{"version": 2, "width": 209, "height": 51, "timestamp": 1739507277, "idle_time_limit": 5.0, "env": {"SHELL": "/usr/bin/zsh", "TERM": "xterm-256color"}}
+[0.188869, "o", "\u001b[1m\u001b[7m%\u001b[27m\u001b[1m\u001b[0m                                                                                                                                                                                                                \r \r"]
+[0.190459, "o", "\u001b]2;cmpt201@7318d27a0134:~/units/04-long-assignments/a8-CandyRagi\u0007\u001b]1;../a8-CandyRagi\u0007"]
+[0.193076, "o", "\u001b]7;file://7318d27a0134/home/cmpt201/units/04-long-assignments/a8-CandyRagi\u001b\\"]
+[0.212031, "o", "\r\u001b[0m\u001b[27m\u001b[24m\u001b[J\u001b[35m[recording] \u001b[34m~/units/04-long-assignments/a8-CandyRagi\u001b[32m❯\u001b[39m \u001b[K"]
+[0.212387, "o", "\u001b[?1h\u001b=\u001b[?2004h"]
+[0.548289, "i", "n"]
+[0.55295, "o", "n"]
+[0.555708, "o", "\b\u001b[1m\u001b[31mn\u001b[0m\u001b[39m"]
+[0.555938, "o", "\b\u001b[1m\u001b[31mn\u001b[0m\u001b[39m\u001b[92mvim internal_commands.h\u001b[39m\u001b[23D"]
