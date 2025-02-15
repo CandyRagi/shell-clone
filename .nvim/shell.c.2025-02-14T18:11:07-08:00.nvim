@@ -30,7 +30,7 @@ void add_to_history(char *input) {
       strcpy(history[i - 1], history[i]);
     }
 
-    strncpy(history[MAX_HIST_SIZE - 1], input, MAX_INPUT_CWD);
+    strncpy(history[MAX_HIST_SIZE-1], input, MAX_INPUT_CWD);
   }
 }
 
@@ -122,7 +122,9 @@ int main()
       background = true;
     }
 
-    if (strcmp(input, "!!") == 0) {
+    if(strcmp(input,"!!")==0)
+    {
+      
     }
 
     add_to_history(input);
