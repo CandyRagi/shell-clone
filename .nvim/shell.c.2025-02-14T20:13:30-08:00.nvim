@@ -43,7 +43,7 @@ void show_history() {
   int length;
   char buffer[MAX_INPUT_CWD];
   for (int i = history_count - 1; i >= start; i--) {
-    length = snprintf(buffer, sizeof(buffer), "%d\t%s", command_number - j - 1,
+    length = snprintf(buffer, sizeof(buffer), "%d\t%s", command_number - j-1,
                       history[i % MAX_HIST_SIZE]);
     write(STDOUT_FILENO, buffer, length);
     j++;
