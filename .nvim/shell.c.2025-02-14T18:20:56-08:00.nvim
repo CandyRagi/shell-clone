@@ -38,9 +38,9 @@ void add_to_history(char *input) {
 
 void show_history() {
   int start = history_count > MAX_HIST_SIZE ? history_count - MAX_HIST_SIZE : 0;
-  int j = 0;
+  int j=0;
   for (int i = history_count - 1; i >= start; i--) {
-    printf("%d\t%s", command_number - j, history[i % MAX_HIST_SIZE]);
+    printf("%d\t%s", command_number-j, history[i % MAX_HIST_SIZE]);
     j++;
   }
 }
