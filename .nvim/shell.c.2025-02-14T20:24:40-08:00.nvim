@@ -105,8 +105,6 @@ int main()
     }
 
     char *input = get_input();
-    while (waitpid(-1, NULL, WNOHANG) > 0)
-      ;
     if (input == NULL) {
       continue;
     }
@@ -170,34 +168,24 @@ int main()
         i++;
       }
       int command_exec = atoi(&input[1]);
-      printf("%d is the number \n", command_exec);
-      if (!(command_exec >= command_number - 10 &&
-            command_exec < command_number)) {
+      printf("%d is the number \n",command_exec);
+      if (!(command_exec > command_number - 10 &&
+            command_exec <= command_number)) {
         invalid = true;
       }
       if (!invalid) {
         free(input);
         input = malloc(MAX_INPUT_CWD * sizeof(char));
 
-        if (history_count < MAX_HIST_SIZE && history_count > 0) {
-
-          strncpy(input, history[command_exec], MAX_INPUT_CWD);
-
-          write(STDOUT_FILENO, input, strlen(input));
-
-        } else {
-          int array[10];
-          for (int i = 0; i < 10; i++) {
-            array[i] = command_number - 10 + i;
-            if (array[i] == command_exec) {
-
-              strncpy(input, history[i], MAX_INPUT_CWD);
-
-              write(STDOUT_FILENO, input, strlen(input));
-              break;
-            }
+        int cmd_index = 0;
+        for (int i = 0; i < MAX_HIST_SIZE; i++) {
+          if ((command_number - 9 + i) == command_exec) {
+            cmd_index = i;
+            break;
           }
         }
+
+        strncpy(input, history[cmd_index], MAX_INPUT_CWD);
       } else {
 
         write(STDERR_FILENO, "history: ", 9);

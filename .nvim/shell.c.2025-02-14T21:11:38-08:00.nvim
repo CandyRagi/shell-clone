@@ -183,17 +183,18 @@ int main()
 
           strncpy(input, history[command_exec], MAX_INPUT_CWD);
 
-          write(STDOUT_FILENO, input, strlen(input));
+          write(STDOUT_FILENO,input,strlen(input));
 
         } else {
+          int cmd_index = 0;
           int array[10];
           for (int i = 0; i < 10; i++) {
             array[i] = command_number - 10 + i;
             if (array[i] == command_exec) {
 
-              strncpy(input, history[i], MAX_INPUT_CWD);
-
-              write(STDOUT_FILENO, input, strlen(input));
+              strncpy(input, history[cmd_index], MAX_INPUT_CWD);
+              
+              write(STDOUT_FILENO,input,strlen(input));
               break;
             }
           }
