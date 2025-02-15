@@ -18,7 +18,9 @@ void cmd_exit(char **token) {
     free_tokens(token);
     exit(0);
   } else {
-    write(STDERR_FILENO, "exit: too many args\n", 20);
+    write(STDOUT_FILENO, "exit: ", 6);
+    write(STDERR_FILENO, EXIT_HELP_MSG, strlen(EXIT_HELP_MSG));
+    write(STDERR_FILENO, "\n", 1);
   }
 }
 
@@ -34,23 +36,59 @@ void cmd_pwd(char **token) {
 
     write(STDOUT_FILENO, "\n", 1);
   } else {
+    write(STDOUT_FILENO, "pwd: ", 5);
     write(STDERR_FILENO, GETCWD_ERROR_MSG, strlen(GETCWD_ERROR_MSG));
+    write(STDERR_FILENO, "\n", 1);
   }
 }
 
 void cmd_help(char **token) {
   if (token_counter(token) > 2) {
-    write(STDOUT_FILENO, "cd: too may args\n", 17);
+    write(STDOUT_FILENO, "help: ", 6);
+    write(STDERR_FILENO, TMA_MSG, strlen(TMA_MSG));
+    write(STDERR_FILENO, "\n", 1);
   } else if (token_counter(token) == 1) {
-    write(STDOUT_FILENO, "all: do this\n", 13);
+    write(STDERR_FILENO, "help:\n", 6);
+    write(STDERR_FILENO, HELP_HELP_MSG, strlen(HELP_HELP_MSG));
+    write(STDERR_FILENO, "\n", 1);
+    write(STDOUT_FILENO, "cd: ", 4);
+    write(STDERR_FILENO, CD_HELP_MSG, strlen(CD_HELP_MSG));
+    write(STDERR_FILENO, "\n", 1);
+    write(STDOUT_FILENO, "exit: ", 6);
+    write(STDERR_FILENO, EXIT_HELP_MSG, strlen(EXIT_HELP_MSG));
+    write(STDERR_FILENO, "\n", 1);
+    write(STDOUT_FILENO, "pwd: ", 5);
+    write(STDERR_FILENO, PWD_HELP_MSG, strlen(PWD_HELP_MSG));
+    write(STDERR_FILENO, "\n", 1);
+    write(STDOUT_FILENO, "history: ", 9);
+    write(STDERR_FILENO, HISTORY_HELP_MSG, strlen(CD_HELP_MSG));
+    write(STDERR_FILENO, "\n", 1);
+
   } else if (strcmp(token[1], "cd") == 0) {
 
-    write(STDOUT_FILENO, "cd: do this\n", 12);
-  } else if (strcmp(token[1], "ls") == 0) {
-    write(STDOUT_FILENO, "ls: do this\n", 12);
+    write(STDOUT_FILENO, "cd: ", 4);
+    write(STDERR_FILENO, CD_HELP_MSG, strlen(CD_HELP_MSG));
+    write(STDERR_FILENO, "\n", 1);
+
+  } else if (strcmp(token[1], "pwd") == 0) {
+
+    write(STDOUT_FILENO, "pwd: ", 5);
+    write(STDERR_FILENO, PWD_HELP_MSG, strlen(PWD_HELP_MSG));
+    write(STDERR_FILENO, "\n", 1);
+
   } else if (strcmp(token[1], "exit") == 0) {
-    write(STDOUT_FILENO, "exit: do this\n", 14);
+
+    write(STDOUT_FILENO, "exit: ", 6);
+    write(STDERR_FILENO, EXIT_HELP_MSG, strlen(EXIT_HELP_MSG));
+    write(STDERR_FILENO, "\n", 1);
   } else if (strcmp(token[1], "help") == 0) {
-    write(STDOUT_FILENO, "help: do this\n", 14);
+
+    write(STDOUT_FILENO, "help: ", 6);
+    write(STDERR_FILENO, HELP_HELP_MSG, strlen(HELP_HELP_MSG));
+    write(STDERR_FILENO, "\n", 1);
+  } else {
+    write(STDOUT_FILENO, token[1], strlen(token[1]));
+    write(STDERR_FILENO, EXTERN_HELP_MSG, strlen(EXTERN_HELP_MSG));
+    write(STDERR_FILENO, "\n", 1);
   }
 }

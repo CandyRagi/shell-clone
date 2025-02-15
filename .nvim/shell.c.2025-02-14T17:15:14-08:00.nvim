@@ -67,7 +67,7 @@ int main()
       write(STDOUT_FILENO, "$ ", 2);
     } else {
       write(STDERR_FILENO, GETCWD_ERROR_MSG, strlen(GETCWD_ERROR_MSG));
-      write(STDERR_FILENO, "\n", 1);
+      write(STDERR_FILENO,"\n",1);
     }
 
     char *input = get_input();
