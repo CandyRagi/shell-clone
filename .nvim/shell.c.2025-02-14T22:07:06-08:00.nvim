@@ -134,6 +134,7 @@ int main()
     }
 
     if (strcmp(input, "!!\n") == 0 && strlen(input) == 3) {
+      printf("in !!");
       free(input);
       input = malloc(MAX_INPUT_CWD * sizeof(char));
       if (history_count > 0 && history_count < MAX_HIST_SIZE) {
@@ -153,12 +154,14 @@ int main()
     }
 
     if (input[0] == '!' && input[1] != '\n') {
+
       int i = 1;
       bool invalid = false;
       while (input[i] != '\n') {
         if (!isdigit(input[i])) {
 
-          invalid = true;
+          bool invalid = true;
+          printf("invalid");
           break;
         }
         i++;

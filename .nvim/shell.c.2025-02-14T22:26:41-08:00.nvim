@@ -159,6 +159,7 @@ int main()
         if (!isdigit(input[i])) {
 
           invalid = true;
+          printf("invalid");
           break;
         }
         i++;

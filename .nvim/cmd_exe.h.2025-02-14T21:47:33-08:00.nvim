@@ -1,13 +1,11 @@
-
 #include "hlpfuncs.h"
-#include <errno.h>
-#include <limits.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include<ctype.h>
 
 void cmd_exe(char **input, bool background) {
   pid_t pid = fork();
@@ -17,7 +15,7 @@ void cmd_exe(char **input, bool background) {
       write(STDERR_FILENO, "shell: ", 7);
       write(STDERR_FILENO, EXEC_ERROR_MSG, strlen(EXEC_ERROR_MSG));
       write(STDERR_FILENO, "\n", 1);
-      exit(EXIT_FAILURE);
+      exit(EXIT_FALIURE);
     }
 
   } else if (pid > 0) {

@@ -153,12 +153,14 @@ int main()
     }
 
     if (input[0] == '!' && input[1] != '\n') {
+      printf("%c this is input 0\n ",input[0]);
       int i = 1;
       bool invalid = false;
       while (input[i] != '\n') {
         if (!isdigit(input[i])) {
 
-          invalid = true;
+          bool invalid = true;
+          printf("invalid");
           break;
         }
         i++;

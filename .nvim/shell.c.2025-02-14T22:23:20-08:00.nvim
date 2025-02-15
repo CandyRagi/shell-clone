@@ -158,10 +158,19 @@ int main()
       while (input[i] != '\n') {
         if (!isdigit(input[i])) {
 
-          invalid = true;
+          bool invalid = true;
+          printf("invalid");
           break;
         }
         i++;
+      }
+      if (invalid) {
+        printf("in if invalid");
+        write(STDERR_FILENO, "history: ", 9);
+        write(STDERR_FILENO, HISTORY_INVALID_MSG, strlen(HISTORY_INVALID_MSG));
+        write(STDERR_FILENO, "\n", 1);
+        free(input);
+        continue;
       }
 
       if (!invalid) {

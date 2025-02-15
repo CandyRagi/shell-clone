@@ -51,21 +51,21 @@ void show_history() {
 }
 
 void sigint_handler(int sig) {
-  write(STDOUT_FILENO, "\nhelp: ", 7);
-  write(STDOUT_FILENO, HELP_HELP_MSG, strlen(HELP_HELP_MSG));
-  write(STDOUT_FILENO, "\n", 1);
+  write(STDERR_FILENO, "\nhelp: ", 7);
+  write(STDERR_FILENO, HELP_HELP_MSG, strlen(HELP_HELP_MSG));
+  write(STDERR_FILENO, "\n", 1);
   write(STDOUT_FILENO, "cd: ", 4);
-  write(STDOUT_FILENO, CD_HELP_MSG, strlen(CD_HELP_MSG));
-  write(STDOUT_FILENO, "\n", 1);
+  write(STDERR_FILENO, CD_HELP_MSG, strlen(CD_HELP_MSG));
+  write(STDERR_FILENO, "\n", 1);
   write(STDOUT_FILENO, "exit: ", 6);
-  write(STDOUT_FILENO, EXIT_HELP_MSG, strlen(EXIT_HELP_MSG));
-  write(STDOUT_FILENO, "\n", 1);
+  write(STDERR_FILENO, EXIT_HELP_MSG, strlen(EXIT_HELP_MSG));
+  write(STDERR_FILENO, "\n", 1);
   write(STDOUT_FILENO, "pwd: ", 5);
-  write(STDOUT_FILENO, PWD_HELP_MSG, strlen(PWD_HELP_MSG));
-  write(STDOUT_FILENO, "\n", 1);
+  write(STDERR_FILENO, PWD_HELP_MSG, strlen(PWD_HELP_MSG));
+  write(STDERR_FILENO, "\n", 1);
   write(STDOUT_FILENO, "history: ", 9);
-  write(STDOUT_FILENO, HISTORY_HELP_MSG, strlen(CD_HELP_MSG));
-  write(STDOUT_FILENO, "\n", 1);
+  write(STDERR_FILENO, HISTORY_HELP_MSG, strlen(CD_HELP_MSG));
+  write(STDERR_FILENO, "\n", 1);
 
   char cwd[MAX_INPUT_CWD];
   if (getcwd(cwd, sizeof(cwd)) != NULL) {
@@ -133,7 +133,8 @@ int main()
       background = true;
     }
 
-    if (strcmp(input, "!!\n") == 0 && strlen(input) == 3) {
+    if (strcmp(input, "!!\n") == 0) {
+
       free(input);
       input = malloc(MAX_INPUT_CWD * sizeof(char));
       if (history_count > 0 && history_count < MAX_HIST_SIZE) {
@@ -153,58 +154,59 @@ int main()
     }
 
     if (input[0] == '!' && input[1] != '\n') {
+
       int i = 1;
       bool invalid = false;
       while (input[i] != '\n') {
         if (!isdigit(input[i])) {
 
-          invalid = true;
+          bool invalid = true;
           break;
         }
         i++;
       }
 
+      if(!invalid)
+      {
+      int command_exec = atoi(&input[1]);
+      
+      if (command_exec < 0) {
+        write(STDERR_FILENO, "history: ", 9);
+        write(STDERR_FILENO, HISTORY_INVALID_MSG, strlen(HISTORY_INVALID_MSG));
+        write(STDERR_FILENO, "\n", 1);
+        free(input);
+        continue;
+      }
+      if (!(command_exec >= command_number - 10 &&
+            command_exec < command_number)) {
+        invalid = true;
+      }
+      
       if (!invalid) {
-        int command_exec = atoi(&input[1]);
+        free(input);
+        input = malloc(MAX_INPUT_CWD * sizeof(char));
 
-        if (command_exec < 0) {
-          write(STDERR_FILENO, "history: ", 9);
-          write(STDERR_FILENO, HISTORY_INVALID_MSG,
-                strlen(HISTORY_INVALID_MSG));
-          write(STDERR_FILENO, "\n", 1);
-          free(input);
-          continue;
-        }
-        if (!(command_exec >= command_number - 10 &&
-              command_exec < command_number)) {
-          invalid = true;
-        }
+        if (history_count < MAX_HIST_SIZE && history_count > 0) {
 
-        if (!invalid) {
-          free(input);
-          input = malloc(MAX_INPUT_CWD * sizeof(char));
+          strncpy(input, history[command_exec], MAX_INPUT_CWD);
 
-          if (history_count < MAX_HIST_SIZE && history_count > 0) {
+          write(STDOUT_FILENO, input, strlen(input));
 
-            strncpy(input, history[command_exec], MAX_INPUT_CWD);
+        } else {
+          int array[10];
+          for (int i = 0; i < 10; i++) {
+            array[i] = command_number - 10 + i;
+            if (array[i] == command_exec) {
 
-            write(STDOUT_FILENO, input, strlen(input));
+              strncpy(input, history[i], MAX_INPUT_CWD);
 
-          } else {
-            int array[10];
-            for (int i = 0; i < 10; i++) {
-              array[i] = command_number - 10 + i;
-              if (array[i] == command_exec) {
-
-                strncpy(input, history[i], MAX_INPUT_CWD);
-
-                write(STDOUT_FILENO, input, strlen(input));
-                break;
-              }
+              write(STDOUT_FILENO, input, strlen(input));
+              break;
             }
           }
         }
-      } else {
+      } 
+    }else {
 
         write(STDERR_FILENO, "history: ", 9);
         write(STDERR_FILENO, HISTORY_INVALID_MSG, strlen(HISTORY_INVALID_MSG));
