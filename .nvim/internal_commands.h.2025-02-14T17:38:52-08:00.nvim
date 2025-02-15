@@ -90,7 +90,6 @@ void cmd_help(char **token) {
     write(STDOUT_FILENO, "\n", 1);
   } else {
     write(STDOUT_FILENO, token[1], strlen(token[1]));
-    write(STDOUT_FILENO, ": ", 2);
     write(STDOUT_FILENO, EXTERN_HELP_MSG, strlen(EXTERN_HELP_MSG));
     write(STDOUT_FILENO, "\n", 1);
   }

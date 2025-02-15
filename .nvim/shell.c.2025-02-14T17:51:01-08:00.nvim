@@ -42,7 +42,7 @@ void show_history() {
 }
 
 void sigint_handler(int sig) {
-  write(STDERR_FILENO, "\nhelp: ", 7);
+  write(STDERR_FILENO, "help: ", 6);
   write(STDERR_FILENO, HELP_HELP_MSG, strlen(HELP_HELP_MSG));
   write(STDERR_FILENO, "\n", 1);
   write(STDOUT_FILENO, "cd: ", 4);
@@ -57,15 +57,6 @@ void sigint_handler(int sig) {
   write(STDOUT_FILENO, "history: ", 9);
   write(STDERR_FILENO, HISTORY_HELP_MSG, strlen(CD_HELP_MSG));
   write(STDERR_FILENO, "\n", 1);
-
-  char cwd[MAX_INPUT_CWD];
-  if (getcwd(cwd, sizeof(cwd)) != NULL) {
-    write(STDOUT_FILENO, cwd, signal_safe_strlen(cwd));
-    write(STDOUT_FILENO, "$ ", 2);
-  } else {
-    write(STDERR_FILENO, GETCWD_ERROR_MSG, strlen(GETCWD_ERROR_MSG));
-    write(STDERR_FILENO, "\n", 1);
-  }
 }
 
 int main()
@@ -143,7 +134,7 @@ int main()
       char *path = tokenized_input[1];
       static char prev_dir[MAX_INPUT_CWD];
       if (token_counter(tokenized_input) > 2) {
-
+        
         write(STDERR_FILENO, "cd: ", 4);
         write(STDERR_FILENO, TMA_MSG, strlen(TMA_MSG));
         write(STDERR_FILENO, "\n", 1);
@@ -166,7 +157,7 @@ int main()
         path = full_path;
       }
       if (chdir(path) != 0) {
-
+        
         write(STDERR_FILENO, "cd: ", 4);
         write(STDERR_FILENO, CHDIR_ERROR_MSG, strlen(CHDIR_ERROR_MSG));
         write(STDERR_FILENO, "\n", 1);
